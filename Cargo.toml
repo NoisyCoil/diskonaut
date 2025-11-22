@@ -15,7 +15,6 @@ crossterm = "0.29"
 failure = "0.1"
 jwalk = "0.8"
 structopt = "0.3"
-filesize = "0.2.0"
 unicode-width = "0.2.2"
 nix = { version = "0.30.0", features = ["user"] }
 [target.'cfg(windows)'.dependencies]

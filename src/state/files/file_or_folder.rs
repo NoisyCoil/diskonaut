@@ -2,8 +2,7 @@ use ::std::collections::{HashMap, VecDeque};
 use ::std::ffi::OsString;
 use ::std::fs::Metadata;
 use ::std::path::PathBuf;
-
-use ::filesize::PathExt;
+use std::os::unix::fs::MetadataExt;
 
 #[derive(Debug, Clone)]
 pub enum FileOrFolder {
@@ -74,9 +73,7 @@ impl Folder {
             let size = if show_apparent_size {
                 entry_metadata.len() as u128
             } else {
-                relative_path
-                    .size_on_disk_fast(&entry_metadata)
-                    .unwrap_or(entry_metadata.len()) as u128
+                (entry_metadata.blocks() * 512) as u128
             };
             self.add_file(relative_path, size);
         }
